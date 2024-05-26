@@ -1,0 +1,54 @@
+{
+  "project_home": "",
+  "storage_dir": "/work/tus53997/",
+  "nodes": 1,
+  "ppn": 28,
+  "walltime": "48:00:00",
+  "email": "taolue.yang@temple.edu",
+  "conda_path": "/home/tus53997/miniconda3/bin/activate",
+  "workflow": [
+    "Compression",
+    "Analysis",
+    "Post-Hoc"
+  ],
+  "input_file": [
+    [
+      "/work/tus53997/FASTQ/ERR1539081.fastq"
+    ],
+    [
+      "/work/tus53997/FASTQ/ERR1539082.fastq"
+    ]
+  ],
+  "input_file_binary": [
+    [
+      "",
+      ""
+    ]
+  ],
+  "reference_file": "/work/tus53997/RefSeq/yst_genome.fna",
+  "reference_already": true,
+  "job_type": "Compression-Decompression",
+  "jobs": [
+    {
+      "name": "fqzcomp",
+      "options": [
+        "-Q 5",
+        "-d"
+      ]
+    },
+    {
+      "name": "renano",
+      "options": [
+        "-t 28",
+        "-d -t 28"
+      ]
+    },
+    {
+      "name": "enano",
+      "options": [
+        "-t 28",
+        "-d -t 28"
+      ]
+    }
+  ]
+}

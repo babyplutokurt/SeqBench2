@@ -1,0 +1,52 @@
+{
+  "project-home": "",
+  "storage_dir": "/home/tus53997/SeqBench2/work",
+  "nodes": 1,
+  "ppn": 24,
+  "walltime": "48:00:00",
+  "email": "taolue.yang@temple.edu",
+  "conda_path": "/home/tus53997/miniconda3/bin/activate",
+  "workflow": [
+    "Compression",
+    "Analysis",
+    "Post-Hoc"
+  ],
+  "input_file": [
+    [
+      "/home/tus53997/SeqBench2/work/FASTQ/ERR899714_1_100000.fastq",
+      "/home/tus53997/SeqBench2/work/FASTQ/ERR899714_2_100000.fastq"
+    ]
+  ],
+  "reference_file": "/home/tus53997/SeqBench2/work/RefSeq/hg38.fa",
+  "reference_already": true,
+  "jobs": [
+    {
+      "name": "SZ3",
+      "options": [
+        "-f -1 {Binary_length} -M REL 0.08",
+        "-f -1 {Binary_length} -M REL 0.08"
+      ]
+    },
+    {
+      "name": "SZ3",
+      "options": [
+        "-f -1 {Binary_length} -M REL 0.15",
+        "-f -1 {Binary_length} -M REL 0.15"
+      ]
+    },
+    {
+      "name": "spring",
+      "options": [
+        "-c -l -q ill_bin",
+        "-d"
+      ]
+    },
+    {
+      "name": "fqzcomp",
+      "options": [
+        "-Q 3",
+        "-d"
+      ]
+    }
+  ]
+}
