@@ -8,7 +8,7 @@ from Post_Hoc_Scripts.post_hoc_analysis import PostHocAnalysis
 from Error_Analysis_Scripts.error_analysis import ErrorAnalysis
 
 if __name__ == '__main__':
-    config = '/home/tus53997/SeqBench2/Jobs/bench2.json'
+    config = '/home/tus53997/SeqBench2/Jobs/genozip.json'
     fastq_split_template = '/home/tus53997/SeqBench2/Scripts_Template/fastq_split.sh'
     fastq_reconstruct_template = '/home/tus53997/SeqBench2/Scripts_Template/fastq_reconstruct.sh'
     compression_template = '/home/tus53997/SeqBench2/Scripts_Template/Compute_Node/Compute_compression.sh'

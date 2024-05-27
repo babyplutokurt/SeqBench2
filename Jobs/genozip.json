@@ -25,7 +25,16 @@
       "options": [
         "",
         ""
-      ]
+      ],
+      "reference_based": true
+    },
+    {
+      "name": "GENOZIP",
+      "options": [
+        "",
+        ""
+      ],
+      "reference_based": false
     }
   ]
 }

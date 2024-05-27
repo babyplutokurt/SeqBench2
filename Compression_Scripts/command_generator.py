@@ -155,21 +155,86 @@ class EnanoCommandGenerator(CommandGenerator):
 
 class GenozipCommandGenerator(CommandGenerator):
     def generate_commands(self, job_index, file_pair_index, file_index):
+        executable_path = COMPRESSOR_PATHS.get("GZIP", ['genozip', 'genounzip'])
+        if not executable_path:
+            raise ValueError("Path for Genozip compressor not found.")
+
         job = self.config['jobs'][job_index]
         if job['name'].upper() != "GENOZIP":
             return []
 
-        executable_path = COMPRESSOR_PATHS.get("GENOZIP")
+        credential_path = '/home/tus53997/SeqBench2/.genozip_license.v15'
+        absolute_credential_path = os.path.abspath(credential_path)
+        print("absolute_credential_path: ", absolute_credential_path)
+
+        referenced = self.config['jobs'][job_index].get('reference_based', False)
+        paired = self.config['jobs'][job_index].get('pair_compression', False)
+        executable_path_compress = executable_path[0]
+        executable_path_decompress = executable_path[1]
+        if referenced:
+            ref_option = f"--reference {self.path_generator.get_reference_file_path()}"
+        else:
+            ref_option = ''
+
+        if paired:  # paired is not supported right now
+            if file_index >= 1:
+                return []
+            input_path1 = self.path_generator.get_input_file_path(job_index, file_pair_index, 0)
+            input_path2 = self.path_generator.get_input_file_path(job_index, file_pair_index, 1)
+            output_path = self.path_generator.get_compressed_output_path(job_index, file_pair_index, 0)
+            decompressed_path1 = self.path_generator.get_decompressed_output_path(job_index, file_pair_index, 0)
+            decompressed_path2 = self.path_generator.get_decompressed_output_path(job_index, file_pair_index, 1)
+            compression_command = f"{executable_path_compress} {ref_option} {job['options'][0]} {input_path1} {input_path2} --pair -o {output_path} --force"
+            decompression_command = f"{executable_path_decompress} {ref_option} {job['options'][1]} {output_path} -o {decompressed_path1} {decompressed_path2} --force"
+        else:
+            input_path = self.path_generator.get_input_file_path(job_index, file_pair_index, file_index)
+            output_path = self.path_generator.get_compressed_output_path(job_index, file_pair_index, file_index)
+            decompressed_path = self.path_generator.get_decompressed_output_path(job_index, file_pair_index, file_index)
+            compression_command = f"{executable_path_compress} {ref_option} {job['options'][0]} {input_path} -o {output_path} --force"
+            decompression_command = f"{executable_path_decompress} {ref_option} {job['options'][1]} {output_path} -o {decompressed_path} --force"
+
+        return [compression_command, decompression_command]
+
+
+class GzipCommandGenerator(CommandGenerator):
+    def generate_commands(self, job_index, file_pair_index, file_index):
+        executable_path = COMPRESSOR_PATHS.get("GZIP", ['genozip', 'genounzip'])
         if not executable_path:
             raise ValueError("Path for Genozip compressor not found.")
 
-        input_path = self.path_generator.get_input_file_path(job_index, file_pair_index, file_index)
-        output_path = self.path_generator.get_compressed_output_path(job_index, file_pair_index, file_index)
-        decompressed_path = self.path_generator.get_decompressed_output_path(job_index, file_pair_index, file_index)
+        job = self.config['jobs'][job_index]
+        if job['name'].upper() != "GENOZIP":
+            return []
 
-        # Non-reference based commands
-        compression_command = f"{executable_path} {job['options'][0]} {input_path} {output_path}"
-        decompression_command = f"{executable_path} {job['options'][1]} {output_path} {decompressed_path}"
+        credential_path = './Compressors/External_Dependencies/.genozip_license.v15'
+        # absolute_credential_path = os.path.abspath(credential_path)
+        print("credential_path: ", credential_path)
+
+        referenced = self.config['jobs'][job_index].get('reference_based', False)
+        paired = self.config['jobs'][job_index].get('pair_compression', False)
+        executable_path_compress = executable_path[0]
+        executable_path_decompress = executable_path[1]
+        if referenced:
+            ref_option = f"--reference {self.path_generator.get_reference_file_path()}"
+        else:
+            ref_option = ''
+
+        if paired:  # paired is not supported right now
+            if file_index >= 1:
+                return []
+            input_path1 = self.path_generator.get_input_file_path(job_index, file_pair_index, 0)
+            input_path2 = self.path_generator.get_input_file_path(job_index, file_pair_index, 1)
+            output_path = self.path_generator.get_compressed_output_path(job_index, file_pair_index, 0)
+            decompressed_path1 = self.path_generator.get_decompressed_output_path(job_index, file_pair_index, 0)
+            decompressed_path2 = self.path_generator.get_decompressed_output_path(job_index, file_pair_index, 1)
+            compression_command = f"{executable_path_compress} --licfile {credential_path} {ref_option} {job['options'][0]} {input_path1} {input_path2} --pair -o {output_path} --force"
+            decompression_command = f"{executable_path_decompress} --licfile {credential_path} {ref_option} {job['options'][1]} {output_path} -o {decompressed_path1} {decompressed_path2} --force"
+        else:
+            input_path = self.path_generator.get_input_file_path(job_index, file_pair_index, file_index)
+            output_path = self.path_generator.get_compressed_output_path(job_index, file_pair_index, file_index)
+            decompressed_path = self.path_generator.get_decompressed_output_path(job_index, file_pair_index, file_index)
+            compression_command = f"{executable_path_compress} --licfile {credential_path} {ref_option} {job['options'][0]} {input_path} -o {output_path} --force"
+            decompression_command = f"{executable_path_decompress} --licfile {credential_path} {ref_option} {job['options'][1]} {output_path} -o {decompressed_path} --force"
 
         return [compression_command, decompression_command]
 
@@ -189,7 +254,8 @@ class CommandGeneratorFactory:
                 'FQZCOMP': FQZCompCommandGenerator(self.config_path, self.path_generator),
                 'SPRING': SpringCommandGenerator(self.config_path, self.path_generator),
                 'RENANO': RenanoCommandGenerator(self.config_path, self.path_generator),
-                'ENANO': EnanoCommandGenerator(self.config_path, self.path_generator)
+                'ENANO': EnanoCommandGenerator(self.config_path, self.path_generator),
+                'GENOZIP': GenozipCommandGenerator(self.config_path, self.path_generator)
             }
         except Exception as e:
             logging.error(f"Failed to initialize command generators: {e}")
@@ -236,7 +302,7 @@ class CommandGeneratorFactory:
 
 
 if __name__ == "__main__":
-    config_path = "/home/tus53997/SeqBench/Jobs/bench.json"
+    config_path = "/home/tus53997/SeqBench2/Jobs/genozip.json"
     factory = CommandGeneratorFactory(config_path)
     all_commands = factory.generate_all_commands()
     for file_pair_index, file_commands in enumerate(all_commands):

@@ -91,13 +91,17 @@ class PathGenerator:
             pass
 
         sanitized_option_str = option_str.replace(" ", "_").replace("/", "_")
+        referenced = self.config['jobs'][job_index].get('reference_based', False)
+        if referenced:
+            sanitized_option_str += '_referenced'
 
         suffix_mapper = {
             "SZ3": ".sz",
             "FQZCOMP": ".fqz",
             "SPRING": ".spring",
             "RENANO": ".renano",
-            "ENANO": ".enano"
+            "ENANO": ".enano",
+            "GENOZIP": ".genozip"
         }
         suffix = suffix_mapper.get(job_name, ".out")
         base_filename = os.path.basename(input_file_path)

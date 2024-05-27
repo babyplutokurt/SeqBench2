@@ -18,7 +18,6 @@
     ]
   ],
   "reference_file": "/home/tus53997/SeqBench2/work/RefSeq/hg38.fa",
-  "reference_already": true,
   "jobs": [
     {
       "name": "SZ3",
