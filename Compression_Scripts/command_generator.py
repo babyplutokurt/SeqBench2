@@ -66,7 +66,7 @@ class FQZCompCommandGenerator(CommandGenerator):
             if "-d" in option:  # Assuming "-d" indicates a decompression option
                 # Modify the input/output paths for decompression
                 decompression_input_path = output_path  # Decompress the previously compressed file
-                command = f"{executable_path} {option} {decompression_input_path} {decompressed_path}"
+                command = f"{executable_path} {option} {decompression_input_path} {decompressed_path} -X"
             else:
                 command = f"{executable_path} {option} {input_path} {output_path}"
             commands.append(command)
@@ -121,13 +121,13 @@ class RenanoCommandGenerator(CommandGenerator):
             reference_command = f"minimap2 -x map-ont --secondary=no --cs {reference_file} {input_path} > {paf_file_path}"
 
             compression_command = f"{executable_path} {job['options'][0]} -r {reference_file} {paf_file_path} {input_path} {output_path}"
-            decompression_command = f"{executable_path} {job['options'][1]} -r {reference_file} {output_path} {decompressed_path}"
+            decompression_command = f"{executable_path} -d {job['options'][1]} -r {reference_file} {output_path} {decompressed_path}"
 
             return [reference_command, compression_command, decompression_command]
 
         # Non-reference based commands
         compression_command = f"{executable_path} {job['options'][0]} {input_path} {output_path}"
-        decompression_command = f"{executable_path} {job['options'][1]} {output_path} {decompressed_path}"
+        decompression_command = f"{executable_path} -d {job['options'][1]} {output_path} {decompressed_path}"
 
         return [compression_command, decompression_command]
 
@@ -148,7 +148,7 @@ class EnanoCommandGenerator(CommandGenerator):
 
         # Non-reference based commands
         compression_command = f"{executable_path} {job['options'][0]} {input_path} {output_path}"
-        decompression_command = f"{executable_path} {job['options'][1]} {output_path} {decompressed_path}"
+        decompression_command = f"{executable_path} -d {job['options'][1]} {output_path} {decompressed_path}"
 
         return [compression_command, decompression_command]
 

@@ -68,12 +68,16 @@ class PathGenerator:
         return os.path.join(base_dir, base_name)
 
     def get_quality_scores_path(self, job_index, file_pair_index, file_index):
-        input_file_path = self.get_input_file_path(job_index, file_pair_index, file_index)
-        base_dir = os.path.join(os.path.dirname(input_file_path), "FASTQ_fields")
-        self.ensure_directory_exists(base_dir)
-        base_file_name = os.path.basename(input_file_path)
-        base_name = base_file_name.replace('.fastq', '_quality_scores.bin')
-        return os.path.join(base_dir, base_name)
+        # for Non-SZ3 job, we don't care about bin file. So we just return the input file path
+        if self.config['jobs'][job_index]['name'].upper() != 'SZ3':
+            return self.get_input_file_path(job_index, file_pair_index, file_index)
+        else:
+            input_file_path = self.get_input_file_path(job_index, file_pair_index, file_index)
+            base_dir = os.path.join(os.path.dirname(input_file_path), "FASTQ_fields")
+            self.ensure_directory_exists(base_dir)
+            base_file_name = os.path.basename(input_file_path)
+            base_name = base_file_name.replace('.fastq', '_quality_scores.bin')
+            return os.path.join(base_dir, base_name)
 
     def get_paf_file_path(self, job_index, file_pair_index, file_index):
         input_file_path = self.get_input_file_path(job_index, file_pair_index, file_index)

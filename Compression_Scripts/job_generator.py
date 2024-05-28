@@ -28,6 +28,7 @@ def check_job_status_depend(job_id):
     except subprocess.CalledProcessError as e:
         return False
 
+
 class JobGenerator:
     def __init__(self, config_name,
                  template_path,
@@ -44,7 +45,8 @@ class JobGenerator:
 
     def create_compression_metrics_csv(self, file_pair_index, file_index):
         metrics_path = self.path_generator.get_compression_metric_path(file_pair_index, file_index)
-        header = ['job_id_compression', 'Compressor_Name', 'Compression_Time', 'Decompression_Time', 'Ratio']
+        header = ['job_id_compression', 'Compressor_Name', 'Compression_Time', 'Compression_Throughput',
+                  'Decompression_Time', 'Decompression_Throughput', 'Ratio']
         os.makedirs(os.path.dirname(metrics_path), exist_ok=True)
         with open(metrics_path, 'w', newline='') as csvfile:
             writer = csv.writer(csvfile)
@@ -68,13 +70,16 @@ class JobGenerator:
         else:
             compression_command = commands[0]
             decompression_command = commands[1]
+        referenced = self.config['jobs'][job_index].get("reference_based", False)
         input_path = self.path_generator.get_input_file_path(job_index, file_pair_index, file_index)
-        binary_input_file = self.path_generator.get_quality_scores_path(0, file_pair_index, file_index)
+        binary_input_file = self.path_generator.get_quality_scores_path(job_index, file_pair_index, file_index)
         compressed_output_path = self.path_generator.get_compressed_output_path(job_index, file_pair_index, file_index)
         metrics_csv_path = self.path_generator.get_compression_metric_path(file_pair_index, file_index)
         output_log = self.path_generator.get_output_log_path(job_index, file_pair_index, file_index)
         error_log = self.path_generator.get_error_log_path(job_index, file_pair_index, file_index)
         compressor_name = self.path_generator.get_compressor_name(job_index, file_pair_index, file_index)
+        if referenced:
+            compressor_name += '_referenced'
         nodes = self.config.get('nodes', 1)  # Default to 1 node if not specified
         ppn = self.config.get('ppn', 8)  # Default to 8 processor per node if not specified
         conda_path = self.config.get('conda_path', '/home/tus53997/miniconda3/bin/activate')

@@ -1,8 +1,8 @@
 {
   "project-home": "",
-  "storage_dir": "/home/tus53997/SeqBench2/work",
+  "storage_dir": "/work/tus53997/",
   "nodes": 1,
-  "ppn": 24,
+  "ppn": 16,
   "walltime": "48:00:00",
   "email": "taolue.yang@temple.edu",
   "conda_path": "/home/tus53997/miniconda3/bin/activate",
@@ -13,24 +13,24 @@
   ],
   "input_file": [
     [
-      "/home/tus53997/SeqBench2/work/FASTQ/ERR899714_1_100000.fastq",
-      "/home/tus53997/SeqBench2/work/FASTQ/ERR899714_2_100000.fastq"
+      "/scratch/tus53997/FASTQ/ERR899712_1.fastq",
+      "/scratch/tus53997/FASTQ/ERR899712_2.fastq"
     ]
   ],
-  "reference_file": "/home/tus53997/SeqBench2/work/RefSeq/hg38.fa",
+  "reference_file": "/work/tus53997/RefSeq/hg38.fa",
   "jobs": [
     {
       "name": "SZ3",
       "options": [
-        "-f -1 {Binary_length} -M REL 0.08",
-        "-f -1 {Binary_length} -M REL 0.08"
+        "-f -1 {Binary_length} -M REL 0.1",
+        "-f -1 {Binary_length} -M REL 0.1"
       ]
     },
     {
       "name": "SZ3",
       "options": [
-        "-f -1 {Binary_length} -M REL 0.15",
-        "-f -1 {Binary_length} -M REL 0.15"
+        "-f -1 {Binary_length} -M ABS 1",
+        "-f -1 {Binary_length} -M ABS 1"
       ]
     },
     {

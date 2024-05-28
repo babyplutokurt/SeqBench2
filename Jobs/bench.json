@@ -1,8 +1,8 @@
 {
   "project-home": "",
-  "storage_dir": "/home/tus53997/SeqBench2/work",
+  "storage_dir": "/scratch/tus53997/",
   "nodes": 1,
-  "ppn": 24,
+  "ppn": 28,
   "walltime": "48:00:00",
   "email": "taolue.yang@temple.edu",
   "conda_path": "/home/tus53997/miniconda3/bin/activate",
@@ -13,18 +13,106 @@
   ],
   "input_file": [
     [
-      "/home/tus53997/SeqBench2/work/FASTQ/ERR899714_1_100000.fastq",
-      "/home/tus53997/SeqBench2/work/FASTQ/ERR899714_2_100000.fastq"
+      "/scratch/tus53997/FASTQ/HG00733_lib04_20171213_FAH37423_DD_guppy_0.5.1.fq"
+    ],
+    [
+      "/scratch/tus53997/FASTQ/SRR1295433_1.fastq",
+      "/scratch/tus53997/FASTQ/SRR1295433_2.fastq"
+    ],
+    [
+      "/scratch/tus53997/FASTQ/ERR899712_1.fastq",
+      "/scratch/tus53997/FASTQ/ERR899712_2.fastq"
+    ],
+    [
+      "/scratch/tus53997/FASTQ/ERR1050080_1.fastq"
+    ],
+    [
+      "/scratch/tus53997/FASTQ/ERR016126.filt.fastq"
+    ],
+    [
+      "/scratch/tus53997/FASTQ/ERR1044277_1.fastq"
+    ],
+    [
+      "/scratch/tus53997/FASTQ/ERR1044278_2.fastq"
     ]
   ],
-  "reference_file": "/home/tus53997/SeqBench2/work/RefSeq/hg38.fa",
-  "reference_already": true,
+  "reference_file": "/work/tus53997/RefSeq/hg38.fa",
   "jobs": [
     {
-      "name": "GENOZIP",
+      "name": "SZ3",
       "options": [
-        "",
-        ""
+        "-f -1 {Binary_length} -M REL 0.05",
+        "-f -1 {Binary_length} -M REL 0.05"
+      ]
+    },
+    {
+      "name": "SZ3",
+      "options": [
+        "-f -1 {Binary_length} -M REL 0.1",
+        "-f -1 {Binary_length} -M REL 0.1"
+      ]
+    },
+    {
+      "name": "SZ3",
+      "options": [
+        "-f -1 {Binary_length} -M REL 0.15",
+        "-f -1 {Binary_length} -M REL 0.15"
+      ]
+    },
+    {
+      "name": "SZ3",
+      "options": [
+        "-f -1 {Binary_length} -M ABS 3",
+        "-f -1 {Binary_length} -M ABS 3"
+      ]
+    },
+    {
+      "name": "SZ3",
+      "options": [
+        "-f -1 {Binary_length} -M ABS 5",
+        "-f -1 {Binary_length} -M ABS 5"
+      ]
+    },
+    {
+      "name": "spring",
+      "options": [
+        "-c -l -q ill_bin",
+        "-d"
+      ]
+    },
+    {
+      "name": "spring",
+      "options": [
+        "-c -q qvz 1",
+        "-d"
+      ]
+    },
+    {
+      "name": "spring",
+      "options": [
+        "-c -q qvz 0.8",
+        "-d"
+      ]
+    },
+    {
+      "name": "spring",
+      "options": [
+        "-c -q qvz 0.6",
+        "-d"
+      ]
+    },
+    {
+      "name": "fqzcomp",
+      "options": [
+        "-Q 3",
+        "-d"
+      ]
+    },
+    {
+      "name": "fqzcomp",
+      "options": [
+        "-Q 5",
+        "-d"
       ]
     }
   ]

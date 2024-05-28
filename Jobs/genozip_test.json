@@ -1,0 +1,37 @@
+{
+  "project-home": "",
+  "storage_dir": "/scratch/tus53997/",
+  "nodes": 1,
+  "ppn": 28,
+  "walltime": "48:00:00",
+  "email": "taolue.yang@temple.edu",
+  "conda_path": "/home/tus53997/miniconda3/bin/activate",
+  "workflow": [
+    "Compression",
+    "Analysis",
+    "Post-Hoc"
+  ],
+  "input_file": [
+    [
+      "/scratch/tus53997/FASTQ/HG00733_lib04_20171213_FAH37423_DD_guppy_0.5.1.fq"
+    ],
+    ["/scratch/tus53997/FASTQ/ERR016126.filt.fastq"]
+  ],
+  "reference_file": "/work/tus53997/RefSeq/hg38.fa",
+  "jobs": [
+    {
+      "name": "fqzcomp",
+      "options": [
+        "-s 9 -q 3",
+        "-d"
+      ]
+    },
+    {
+      "name": "fqzcomp",
+      "options": [
+        "",
+        "-d"
+      ]
+    }
+  ]
+}

@@ -1,8 +1,8 @@
 {
   "project-home": "",
-  "storage_dir": "/home/tus53997/SeqBench2/work",
+  "storage_dir": "/scratch/tus53997/",
   "nodes": 1,
-  "ppn": 24,
+  "ppn": 28,
   "walltime": "48:00:00",
   "email": "taolue.yang@temple.edu",
   "conda_path": "/home/tus53997/miniconda3/bin/activate",
@@ -13,12 +13,30 @@
   ],
   "input_file": [
     [
-      "/home/tus53997/SeqBench2/work/FASTQ/ERR899714_1_100000.fastq",
-      "/home/tus53997/SeqBench2/work/FASTQ/ERR899714_2_100000.fastq"
+      "/scratch/tus53997/FASTQ/HG00733_lib04_20171213_FAH37423_DD_guppy_0.5.1.fq"
+    ],
+    [
+      "/scratch/tus53997/FASTQ/SRR1295433_1.fastq",
+      "/scratch/tus53997/FASTQ/SRR1295433_2.fastq"
+    ],
+    [
+      "/scratch/tus53997/FASTQ/ERR899712_1.fastq",
+      "/scratch/tus53997/FASTQ/ERR899712_2.fastq"
+    ],
+    [
+      "/scratch/tus53997/FASTQ/ERR1050080_1.fastq"
+    ],
+    [
+      "/scratch/tus53997/FASTQ/ERR016126.filt.fastq"
+    ],
+    [
+      "/scratch/tus53997/FASTQ/ERR1044277_1.fastq"
+    ],
+    [
+      "/scratch/tus53997/FASTQ/ERR1044278_2.fastq"
     ]
   ],
-  "reference_file": "/home/tus53997/SeqBench2/work/RefSeq/hg38.fa",
-  "reference_already": true,
+  "reference_file": "/work/tus53997/RefSeq/hg38.fa",
   "jobs": [
     {
       "name": "GENOZIP",
@@ -31,10 +49,78 @@
     {
       "name": "GENOZIP",
       "options": [
+        "-b",
+        ""
+      ],
+      "reference_based": true
+    },
+    {
+      "name": "GENOZIP",
+      "options": [
+        "-F",
+        ""
+      ],
+      "reference_based": true
+    },
+    {
+      "name": "GENOZIP",
+      "options": [
         "",
         ""
       ],
       "reference_based": false
+    },
+    {
+      "name": "GENOZIP",
+      "options": [
+        "-b",
+        ""
+      ],
+      "reference_based": false
+    },
+    {
+      "name": "GENOZIP",
+      "options": [
+        "-F",
+        ""
+      ],
+      "reference_based": false
+    },
+    {
+      "name": "RENANO",
+      "options": [
+        "",
+        ""
+      ]
+    },
+    {
+      "name": "RENANO",
+      "options": [
+        "",
+        ""
+      ],
+      "reference_based": true
+    },
+    {
+      "name": "ENANO",
+      "options": [
+        "",
+        ""
+      ]
+    },
+    {
+      "name": "fqzcomp",
+      "options": [
+        "",
+        "-d"
+      ]
+    },
+    {
+      "name": "fqzcomp",
+      "options": [
+        "-s 9 -q 3",
+        "-d"
+      ]
     }
   ]
 }

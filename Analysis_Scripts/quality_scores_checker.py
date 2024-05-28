@@ -1,5 +1,5 @@
 import sys
-def extract_quality_scores(fastq_file, num_lines=5000000):
+def extract_quality_scores(fastq_file, num_lines=20000000):
     quality_scores = set()
     line_count = 0
 
@@ -18,7 +18,7 @@ def extract_quality_scores(fastq_file, num_lines=5000000):
 
 
 if __name__ == "__main__":
-    fastq_file = "/home/tus53997/SeqBench/DecompressedOutput/ERR899714_1_10000000.fastq_-c_-l_-q_ill_bin.spring.fastq"
+    fastq_file = "/scratch/tus53997/FASTQ/ERR1044278_2.fastq"
     quality_scores = extract_quality_scores(fastq_file)
     print("Individual Quality Scores Count:", len(quality_scores))
     for q in quality_scores:

@@ -10,9 +10,10 @@ def files_are_identical(file1, file2, chunk_size=1024):
             if not chunk1:  # End of file
                 return True
 
+
 # Example usage
-file1 = 'path/to/first/file.txt'
-file2 = 'path/to/second/file.txt'
+file1 = '/work/tus53997/FASTQ/ERR899714_1_100000.fastq'
+file2 = '/work/tus53997/DecompressedOutput/ERR899714_1_100000.fastq_-b_referenced.genozip.fastq'
 
 if files_are_identical(file1, file2):
     print("The files are identical.")
