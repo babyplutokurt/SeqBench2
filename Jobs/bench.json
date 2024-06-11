@@ -16,28 +16,35 @@
       "/scratch/tus53997/FASTQ/HG00733_lib04_20171213_FAH37423_DD_guppy_0.5.1.fq"
     ],
     [
-      "/scratch/tus53997/FASTQ/SRR1295433_1.fastq",
-      "/scratch/tus53997/FASTQ/SRR1295433_2.fastq"
+      "/scratch/tus53997/FASTQ/SRR1295433_1_100000.fastq",
+      "/scratch/tus53997/FASTQ/SRR1295433_2_100000.fastq"
     ],
     [
-      "/scratch/tus53997/FASTQ/ERR899712_1.fastq",
-      "/scratch/tus53997/FASTQ/ERR899712_2.fastq"
+      "/scratch/tus53997/FASTQ/ERR899712_1_100000.fastq",
+      "/scratch/tus53997/FASTQ/ERR899712_2_100000.fastq"
     ],
     [
-      "/scratch/tus53997/FASTQ/ERR1050080_1.fastq"
+      "/scratch/tus53997/FASTQ/ERR1050080_1_100000.fastq"
     ],
     [
       "/scratch/tus53997/FASTQ/ERR016126.filt.fastq"
     ],
     [
-      "/scratch/tus53997/FASTQ/ERR1044277_1.fastq"
+      "/scratch/tus53997/FASTQ/ERR1044277_1_100000.fastq"
     ],
     [
-      "/scratch/tus53997/FASTQ/ERR1044278_2.fastq"
+      "/scratch/tus53997/FASTQ/ERR1044278_2_100000.fastq"
     ]
   ],
   "reference_file": "/work/tus53997/RefSeq/hg38.fa",
   "jobs": [
+    {
+      "name": "SZ3",
+      "options": [
+        "-f -1 {Binary_length} -M REL 0.02",
+        "-f -1 {Binary_length} -M REL 0.02"
+      ]
+    },
     {
       "name": "SZ3",
       "options": [
@@ -62,15 +69,8 @@
     {
       "name": "SZ3",
       "options": [
-        "-f -1 {Binary_length} -M ABS 3",
-        "-f -1 {Binary_length} -M ABS 3"
-      ]
-    },
-    {
-      "name": "SZ3",
-      "options": [
-        "-f -1 {Binary_length} -M ABS 5",
-        "-f -1 {Binary_length} -M ABS 5"
+        "-f -1 {Binary_length} -M REL 0.3",
+        "-f -1 {Binary_length} -M REL 0.3"
       ]
     },
     {
@@ -83,21 +83,28 @@
     {
       "name": "spring",
       "options": [
-        "-c -q qvz 1",
+        "-c -l -q qvz 2",
         "-d"
       ]
     },
     {
       "name": "spring",
       "options": [
-        "-c -q qvz 0.8",
+        "-c -l -q qvz 4",
         "-d"
       ]
     },
     {
       "name": "spring",
       "options": [
-        "-c -q qvz 0.6",
+        "-c -l -q qvz 8",
+        "-d"
+      ]
+    },
+    {
+      "name": "fqzcomp",
+      "options": [
+        "-Q 2",
         "-d"
       ]
     },

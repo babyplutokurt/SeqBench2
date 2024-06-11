@@ -26,7 +26,27 @@ def main():
 
 
 if __name__ == "__main__":
-    extract_lines(100000, "/work/tus53997/FASTQ/ERR899714_1.fastq",
-                  "/work/tus53997/FASTQ/ERR899714_1_100000.fastq")
-    extract_lines(100000, "/work/tus53997/FASTQ/ERR899714_2.fastq",
-                  "/work/tus53997/FASTQ/ERR899714_2_100000.fastq")
+    extract_lines(500000, "/scratch/tus53997/FASTQ/SRR1295433_1.fastq",
+                  "/scratch/tus53997/FASTQ/SRR1295433_1_500000.fastq")
+    extract_lines(500000, "/scratch/tus53997/FASTQ/SRR1295433_2.fastq",
+                  "/scratch/tus53997/FASTQ/SRR1295433_2_500000.fastq")
+
+    extract_lines(500000, "/scratch/tus53997/FASTQ/ERR899712_1.fastq",
+                  "/scratch/tus53997/FASTQ/ERR899712_1_500000.fastq")
+    extract_lines(500000, "/scratch/tus53997/FASTQ/ERR899712_2.fastq",
+                  "/scratch/tus53997/FASTQ/ERR899712_2_500000.fastq")
+
+    extract_lines(500000, "/scratch/tus53997/FASTQ/ERR1044277_1.fastq",
+                  "/scratch/tus53997/FASTQ/ERR1044277_1_500000.fastq")
+    extract_lines(500000, "/scratch/tus53997/FASTQ/ERR1044278_2.fastq",
+                  "/scratch/tus53997/FASTQ/ERR1044278_2_500000.fastq")
+
+    extract_lines(500000, "/scratch/tus53997/FASTQ/ERR1050080_1.fastq",
+                  "/scratch/tus53997/FASTQ/ERR1050080_1_500000.fastq")
+
+    extract_lines(100000, "/scratch/tus53997/FASTQ/HG00733_lib04_20171213_FAH37423_DD_guppy_0.5.1.fq",
+                  "/scratch/tus53997/FASTQ/HG00733_lib04_20171213_FAH37423_DD_guppy_0.5.1_100000.fq")
+
+
+
+

@@ -1,0 +1,106 @@
+{
+    "/scratch/tus53997/FASTQ/ERR016126.filt.fastq": {
+        "compressed_bases_id_size": 4666151,
+        "compressed_bases_size": 16236612
+    },
+    "/scratch/tus53997/FASTQ/ERR899712_1_100000.fastq": {
+        "compressed_bases_id_size": 476603,
+        "compressed_bases_size": 3194574
+    },
+    "/scratch/tus53997/FASTQ/ERR899712_2_100000.fastq": {
+        "compressed_bases_id_size": 471292,
+        "compressed_bases_size": 3197044
+    },
+    "/scratch/tus53997/FASTQ/ERR1050080_1_5000000.fastq": {
+        "compressed_bases_id_size": 24717290,
+        "compressed_bases_size": 47466680
+    },
+    "/scratch/tus53997/FASTQ/ERR899712_2_5000000.fastq": {
+        "compressed_bases_id_size": 22781426,
+        "compressed_bases_size": 156477080
+    },
+    "/scratch/tus53997/FASTQ/ERR899712_1_5000000.fastq": {
+        "compressed_bases_id_size": 22764230,
+        "compressed_bases_size": 155719676
+    },
+    "/scratch/tus53997/FASTQ/SRR1295433_2_5000000.fastq": {
+        "compressed_bases_id_size": 2474427,
+        "compressed_bases_size": 134157711
+    },
+    "/scratch/tus53997/FASTQ/SRR1295433_1_5000000.fastq": {
+        "compressed_bases_id_size": 2474439,
+        "compressed_bases_size": 103641376
+    },
+    "/scratch/tus53997/FASTQ/ERR1044278_2_5000000.fastq": {
+        "compressed_bases_id_size": 22334531,
+        "compressed_bases_size": 118091461
+    },
+    "/scratch/tus53997/FASTQ/ERR1044277_1_5000000.fastq": {
+        "compressed_bases_id_size": 22722020,
+        "compressed_bases_size": 125411508
+    },
+    "/scratch/tus53997/FASTQ/HG00733_lib04_20171213_FAH37423_DD_guppy_0.5.1.fq": {
+        "compressed_bases_id_size": 4576968,
+        "compressed_bases_size": 769383969
+    },
+    "/scratch/tus53997/FASTQ/SRR1295433_2_100000.fastq": {
+        "compressed_bases_id_size": 131886,
+        "compressed_bases_size": 2952370
+    },
+    "/scratch/tus53997/FASTQ/SRR1295433_1_100000.fastq": {
+        "compressed_bases_id_size": 131890,
+        "compressed_bases_size": 2152111
+    },
+    "/scratch/tus53997/FASTQ/ERR1050080_1_100000.fastq": {
+        "compressed_bases_id_size": 505539,
+        "compressed_bases_size": 1152695
+    },
+    "/scratch/tus53997/FASTQ/ERR1044277_1_100000.fastq": {
+        "compressed_bases_id_size": 517605,
+        "compressed_bases_size": 2576081
+    },
+    "/scratch/tus53997/FASTQ/ERR1044278_2_100000.fastq": {
+        "compressed_bases_id_size": 488945,
+        "compressed_bases_size": 2407821
+    },
+    "/scratch/tus53997/FASTQ/SRR1295433_2_1000000.fastq": {
+        "compressed_bases_id_size": 551959,
+        "compressed_bases_size": 29452247
+    },
+    "/scratch/tus53997/FASTQ/SRR1295433_1_1000000.fastq": {
+        "compressed_bases_id_size": 551966,
+        "compressed_bases_size": 21792358
+    },
+    "/scratch/tus53997/FASTQ/ERR1050080_1_500000.fastq": {
+        "compressed_bases_id_size": 2520919,
+        "compressed_bases_size": 5038782
+    },
+    "/scratch/tus53997/FASTQ/ERR1044278_2_500000.fastq": {
+        "compressed_bases_id_size": 2363455,
+        "compressed_bases_size": 11869030
+    },
+    "/scratch/tus53997/FASTQ/ERR1044277_1_500000.fastq": {
+        "compressed_bases_id_size": 2399977,
+        "compressed_bases_size": 12658916
+    },
+    "/scratch/tus53997/FASTQ/ERR899712_2_500000.fastq": {
+        "compressed_bases_id_size": 2461845,
+        "compressed_bases_size": 15754653
+    },
+    "/scratch/tus53997/FASTQ/ERR899712_1_500000.fastq": {
+        "compressed_bases_id_size": 2469922,
+        "compressed_bases_size": 15726196
+    },
+    "/scratch/tus53997/FASTQ/SRR1295433_2_500000.fastq": {
+        "compressed_bases_id_size": 324089,
+        "compressed_bases_size": 15135982
+    },
+    "/scratch/tus53997/FASTQ/SRR1295433_1_500000.fastq": {
+        "compressed_bases_id_size": 324096,
+        "compressed_bases_size": 11122703
+    },
+    "/scratch/tus53997/FASTQ/HG00733_lib04_20171213_FAH37423_DD_guppy_0.5.1_500000.fq": {
+        "compressed_bases_id_size": 4576968,
+        "compressed_bases_size": 769383969
+    }
+}

@@ -17,7 +17,7 @@ input_path = "/home/tus53997/SeqBench/Test/ERR899714_1_10000000.fastq"
 base_identifiers_path = "/home/tus53997/SeqBench/FASTQ/FASTQ_fields/ERR899714_1_1000000_base_id.fastq"
 dna_bases_path = "/home/tus53997/SeqBench/FASTQ/FASTQ_fields/ERR899714_1_1000000_dna_bases.fastq"
 quality_identifiers_path = "/home/tus53997/SeqBench/FASTQ/FASTQ_fields/ERR899714_1_1000000_quality_id.fastq"
-quality_scores_path = "/home/tus53997/SeqBench/DecompressedOutput/ERR899714_1_1000000.fastq_-f_-1_79576473_-M_REL_0.03.sz.fastq"
+quality_scores_path = "/scratch/tus53997/DecompressedOutput/HG00733_lib04_20171213_FAH37423_DD_guppy_0.5.1.fq_-f_-1_{Binary_length}_-M_REL_0.05.sz.bin"
 output_path = "/home/tus53997/SeqBench/Test/output.fastq"
 
 

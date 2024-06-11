@@ -40,9 +40,38 @@ def merge_csv_files(file1, file2, file3, output_file):
 
 
 if __name__ == "__main__":
-    file1 = '/home/tus53997/SeqBench/Compression_Scripts/Logs/metrics/compression_metrics_ERR899714_1_1000000.fastq.csv'
-    file2 = '/home/tus53997/SeqBench/Error_Analysis_Scripts/Logs/metrics/error_analysis_metrics_ERR899714_1_1000000.fastq.csv'
-    file3 = '/home/tus53997/SeqBench/Post_Hoc_Scripts/Logs/metrics/compression_metrics_ERR899714_1_1000000.fastq.csv'
-    output_file = '/home/tus53997/SeqBench/Post_Hoc_Scripts/Logs/metrics/final_merged_file.csv'
+    file1 = '/home/tus53997/SeqBench2/Compression_Scripts/Logs/metrics/compression_metrics_ERR016126.filt.fastq.csv'
+    file2 = '/home/tus53997/SeqBench2/Error_Analysis_Scripts/Logs/metrics/error_analysis_metrics_ERR016126.filt.fastq.csv'
+    file3 = '/home/tus53997/SeqBench2/Post_Hoc_Scripts/Logs/metrics/post_hoc_ERR016126.filt.fastq.csv'
+    output_file = '/home/tus53997/SeqBench2/Analysis_Scripts/Metrics/ERR016126.csv'
+    merge_csv_files(file1, file2, file3, output_file)
 
+    file1 = '/home/tus53997/SeqBench2/Compression_Scripts/Logs/metrics/compression_metrics_ERR899712_1_100000.fastq.csv'
+    file2 = '/home/tus53997/SeqBench2/Error_Analysis_Scripts/Logs/metrics/error_analysis_metrics_ERR899712_1_100000.fastq.csv'
+    file3 = '/home/tus53997/SeqBench2/Post_Hoc_Scripts/Logs/metrics/post_hoc_ERR899712_1_100000.fastq.csv'
+    output_file = '/home/tus53997/SeqBench2/Analysis_Scripts/Metrics/ERR899712.csv'
+    merge_csv_files(file1, file2, file3, output_file)
+
+    file1 = '/home/tus53997/SeqBench2/Compression_Scripts/Logs/metrics/compression_metrics_ERR1044277_1_100000.fastq.csv'
+    file2 = '/home/tus53997/SeqBench2/Error_Analysis_Scripts/Logs/metrics/error_analysis_metrics_ERR1044277_1_100000.fastq.csv'
+    file3 = '/home/tus53997/SeqBench2/Post_Hoc_Scripts/Logs/metrics/post_hoc_ERR1044277_1_100000.fastq.csv'
+    output_file = '/home/tus53997/SeqBench2/Analysis_Scripts/Metrics/ERR1044277.csv'
+    merge_csv_files(file1, file2, file3, output_file)
+
+    file1 = '/home/tus53997/SeqBench2/Compression_Scripts/Logs/metrics/compression_metrics_ERR1044278_2_100000.fastq.csv'
+    file2 = '/home/tus53997/SeqBench2/Error_Analysis_Scripts/Logs/metrics/error_analysis_metrics_ERR1044278_2_100000.fastq.csv'
+    file3 = '/home/tus53997/SeqBench2/Post_Hoc_Scripts/Logs/metrics/post_hoc_ERR1044278_2_100000.fastq.csv'
+    output_file = '/home/tus53997/SeqBench2/Analysis_Scripts/Metrics/ERR1044278.csv'
+    merge_csv_files(file1, file2, file3, output_file)
+
+    file1 = '/home/tus53997/SeqBench2/Compression_Scripts/Logs/metrics/compression_metrics_ERR1050080_1_100000.fastq.csv'
+    file2 = '/home/tus53997/SeqBench2/Error_Analysis_Scripts/Logs/metrics/error_analysis_metrics_ERR1050080_1_100000.fastq.csv'
+    file3 = '/home/tus53997/SeqBench2/Post_Hoc_Scripts/Logs/metrics/post_hoc_ERR1050080_1_100000.fastq.csv'
+    output_file = '/home/tus53997/SeqBench2/Analysis_Scripts/Metrics/ERR1050080.csv'
+    merge_csv_files(file1, file2, file3, output_file)
+
+    file1 = '/home/tus53997/SeqBench2/Compression_Scripts/Logs/metrics/compression_metrics_SRR1295433_1_100000.fastq.csv'
+    file2 = '/home/tus53997/SeqBench2/Error_Analysis_Scripts/Logs/metrics/error_analysis_metrics_SRR1295433_1_100000.fastq.csv'
+    file3 = '/home/tus53997/SeqBench2/Post_Hoc_Scripts/Logs/metrics/post_hoc_SRR1295433_1_100000.fastq.csv'
+    output_file = '/home/tus53997/SeqBench2/Analysis_Scripts/Metrics/SRR1295433.csv'
     merge_csv_files(file1, file2, file3, output_file)

@@ -85,6 +85,12 @@ class JobGenerator:
         conda_path = self.config.get('conda_path', '/home/tus53997/miniconda3/bin/activate')
         walltime = self.config.get('walltime', "24:00:00")
         email = self.config.get('email', "default@gamil.com")
+        node_size = 'normal'
+        compressor = 'FASTQ_specific'
+        if self.config['jobs'][job_index]['name'].upper() in ('SZ3'):
+            # node_size = 'large'
+            # ppn = 16
+            compressor = 'SZ3'
 
         active_dependencies = []
         for dep in dependencies:
@@ -96,9 +102,11 @@ class JobGenerator:
         job_name = f"compression_{file_pair_index}_{job_index}_{file_index}"
 
         job_script_content = template.render(
+            compressor=compressor,
             job_name=job_name,
             nodes=nodes,
             ppn=ppn,
+            node_size=node_size,
             walltime=walltime,
             conda_path=conda_path,
             email=email,

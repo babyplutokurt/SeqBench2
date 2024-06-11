@@ -38,17 +38,23 @@ class PathGenerator:
         return self.get_full_path(reference_file)
 
     def get_input_file_path(self, job_index, file_pair_index, file_index):
-        job_name = self.config['jobs'][job_index]['name'].upper()
         file_set = 'input_file'
         input_files = self.config[file_set][file_pair_index]
         return self.get_full_path(input_files[file_index])
+
+    def replace_extension(self, file_name, new_extension):
+        base_name, file_ext = os.path.splitext(file_name)
+        if file_ext in ['.fastq', '.fq', '.fnq']:
+            return base_name + new_extension
+        else:
+            raise ValueError(f"Unexpected file extension: {file_ext}")
 
     def get_bases_id_path(self, job_index, file_pair_index, file_index):
         input_file_path = self.get_input_file_path(job_index, file_pair_index, file_index)
         base_dir = os.path.join(os.path.dirname(input_file_path), "FASTQ_fields")
         self.ensure_directory_exists(base_dir)
         base_file_name = os.path.basename(input_file_path)
-        base_name = base_file_name.replace('.fastq', '_base_id.fastq')
+        base_name = self.replace_extension(base_file_name, '_base_id.fastq')
         return os.path.join(base_dir, base_name)
 
     def get_dna_bases_path(self, job_index, file_pair_index, file_index):
@@ -56,7 +62,7 @@ class PathGenerator:
         base_dir = os.path.join(os.path.dirname(input_file_path), "FASTQ_fields")
         self.ensure_directory_exists(base_dir)
         base_file_name = os.path.basename(input_file_path)
-        base_name = base_file_name.replace('.fastq', '_dna_bases.fastq')
+        base_name = self.replace_extension(base_file_name, '_dna_bases.fastq')
         return os.path.join(base_dir, base_name)
 
     def get_quality_id_path(self, job_index, file_pair_index, file_index):
@@ -64,24 +70,26 @@ class PathGenerator:
         base_dir = os.path.join(os.path.dirname(input_file_path), "FASTQ_fields")
         self.ensure_directory_exists(base_dir)
         base_file_name = os.path.basename(input_file_path)
-        base_name = base_file_name.replace('.fastq', '_quality_id.fastq')
+        base_name = self.replace_extension(base_file_name, '_quality_id.fastq')
         return os.path.join(base_dir, base_name)
 
     def get_quality_scores_path(self, job_index, file_pair_index, file_index):
-        # for Non-SZ3 job, we don't care about bin file. So we just return the input file path
-        if self.config['jobs'][job_index]['name'].upper() != 'SZ3':
+        job_name = self.config['jobs'][job_index]['name'].upper()
+
+        if job_name != 'SZ3':
             return self.get_input_file_path(job_index, file_pair_index, file_index)
-        else:
-            input_file_path = self.get_input_file_path(job_index, file_pair_index, file_index)
-            base_dir = os.path.join(os.path.dirname(input_file_path), "FASTQ_fields")
-            self.ensure_directory_exists(base_dir)
-            base_file_name = os.path.basename(input_file_path)
-            base_name = base_file_name.replace('.fastq', '_quality_scores.bin')
-            return os.path.join(base_dir, base_name)
+
+        input_file_path = self.get_input_file_path(job_index, file_pair_index, file_index)
+        base_dir = os.path.join(os.path.dirname(input_file_path), "FASTQ_fields")
+        self.ensure_directory_exists(base_dir)
+
+        base_file_name = os.path.basename(input_file_path)
+        base_name = self.replace_extension(base_file_name, '_quality_scores.bin')
+        return os.path.join(base_dir, base_name)
 
     def get_paf_file_path(self, job_index, file_pair_index, file_index):
         input_file_path = self.get_input_file_path(job_index, file_pair_index, file_index)
-        input_file_name = os.path.basename(input_file_path).replace('.fastq', '') + '.paf'
+        input_file_name = self.replace_extension(os.path.basename(input_file_path), '.paf')
         paf_file_path = os.path.abspath(os.path.join(self.storage_dir, 'RefSeq', input_file_name))
         self.ensure_directory_exists(os.path.dirname(paf_file_path))
         return paf_file_path
@@ -90,9 +98,6 @@ class PathGenerator:
         input_file_path = self.get_input_file_path(job_index, file_pair_index, file_index)
         job_name = self.config['jobs'][job_index]['name'].upper()
         option_str = self.config['jobs'][job_index]['options'][0]  # Get the first option
-
-        if "{Binary_length}" in option_str:
-            pass
 
         sanitized_option_str = option_str.replace(" ", "_").replace("/", "_")
         referenced = self.config['jobs'][job_index].get('reference_based', False)
@@ -126,8 +131,7 @@ class PathGenerator:
 
     def get_reconstruct_fastq_path(self, job_index, file_pair_index, file_index):
         decompressed_bin = self.get_decompressed_output_path(job_index, file_pair_index, file_index)
-        decompressed_file_path = f'{decompressed_bin}.fastq'
-        return decompressed_file_path
+        return decompressed_bin  # No need to add .fastq again, it's already in the decompressed path
 
     def get_compression_metric_path(self, file_pair_index, file_index):
         input_files = self.config['input_file'][file_pair_index]
@@ -271,7 +275,7 @@ class PathGenerator:
         input_files = self.config['input_file'][file_pair_index]
         input_file_path = self.get_full_path(input_files[0])
         base_filename = os.path.basename(input_file_path)
-        metrics_filename = f"compression_metrics_{base_filename}.csv"
+        metrics_filename = f"post_hoc_{base_filename}.csv"
         metrics_dir = os.path.abspath(os.path.join(self.project_base_dir, 'Post_Hoc_Scripts', 'Logs', 'metrics'))
         self.ensure_directory_exists(metrics_dir)
         return os.path.join(metrics_dir, metrics_filename)
@@ -330,13 +334,13 @@ class PathGenerator:
 
 
 if __name__ == "__main__":
-    config_path = "/home/tus53997/SeqBench/Jobs/bench2.json"  # Adjust the path as necessary
+    config_path = "/home/tus53997/SeqBench2/Jobs/bench2.json"  # Adjust the path as necessary
     pg = PathGenerator(config_path)
     job_index = 0
     file_pair_index = 0  # example file pair index
-    file_index = 1  # example file index
+    file_index = 0  # example file index
     try:
-        print(pg.get_input_file_path(job_index, file_pair_index, file_index))
+        print(pg.get_quality_scores_path(job_index, file_pair_index, file_index))
         # print(pg.get_dna_bases_path(job_index, file_pair_index, file_index))
         # print(pg.get_quality_id_path(job_index, file_pair_index, file_index))
         # print(pg.get_quality_scores_path(job_index, file_pair_index, file_index))

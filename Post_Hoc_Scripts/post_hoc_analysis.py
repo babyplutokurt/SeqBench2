@@ -58,8 +58,9 @@ class PostHocAnalysis:
             writer.writerow(header)
         logging.info(f"Created CSV file for Post-hoc metrics: {metrics_path}")
 
-    def create_original_files_vcf_script(self, job_name="truth_vcf", job_index=0, file_pair_index=0,
-                                         file_index=0, dependencies=[]):
+
+    def create_original_files_vcf_script(self, job_name="truth_vcf", file_pair_index=0,
+                                         file_index=0, dependencies=[], job_index = 0):
         input_fastq_1 = self.path_generator.get_input_file_path(job_index, file_pair_index, 0)
         if len(self.config['input_file'][file_pair_index]) > 1:
             input_fastq_2 = self.path_generator.get_input_file_path(job_index, file_pair_index, 1)
@@ -71,7 +72,7 @@ class PostHocAnalysis:
         variant_path = self.path_generator.get_truth_variant_path(job_index, file_pair_index, file_index)
         compressed_variant_path = self.path_generator.get_truth_compressed_variant_path(job_index, file_pair_index,
                                                                                         file_index)
-
+        job_name = f'truth_vcf_{file_pair_index}'
         output_log = self.path_generator.get_post_hoc_truth_output_log_path(job_index, file_pair_index, file_index)
         error_log = self.path_generator.get_post_hoc_truth_error_log_path(job_index, file_pair_index, file_index)
         nodes = self.config.get('nodes', 1)  # Default to 1 node if not specified
@@ -126,7 +127,7 @@ class PostHocAnalysis:
         variant_path = self.path_generator.get_variant_path(job_index, file_pair_index, file_index)
         compressed_variant_path = self.path_generator.get_compressed_variant_path(job_index, file_pair_index,
                                                                                   file_index)
-        original_vcf = self.path_generator.get_truth_compressed_variant_path(0, 0,
+        original_vcf = self.path_generator.get_truth_compressed_variant_path(0, file_pair_index,
                                                                              0)  # Assuming the first job is for the original VCF
         comparison_dir = self.path_generator.get_comparison_dir_path(job_index, file_pair_index, file_index)
         compressor_name = self.path_generator.get_compressor_name(job_index, file_pair_index, file_index)
@@ -193,23 +194,21 @@ class PostHocAnalysis:
             logging.error(f"Failed to submit job: {job_script_path}, Error: {e}")
             return None
 
-    def run_posthoc_analysis(self, job_name="truth_vcf", job_index=0, file_pair_index=0, file_index=0,
-                             dependencies=None):
+    def run_posthoc_analysis(self, job_name="truth_vcf", dependencies=None):
 
         # Step 1: Create CSV files for each input pair
         for file_pair_index, file_pair in enumerate(self.config['input_file']):
             self.create_post_hoc_metrics_csv(file_pair_index, 0)
+        for file_pair_index, file_pair in enumerate(self.config['input_file']):
 
-        script_path = self.create_original_files_vcf_script(job_name, job_index, file_pair_index,
-                                                            file_index,
-                                                            dependencies)
-        job_id = self.submit_job(script_path)
-        if job_id:
-            for file_pair_index, file_pair in enumerate(self.config['input_file']):
-                for job_index in range(len(self.config['jobs'])):
-                    for file_index in range(len(file_pair)):
-                        job_name = f"job_{file_pair_index}_{job_index}_{file_index}"
-                        self.dependency_linker.append_job_id(job_name, job_id)
+                script_path = self.create_original_files_vcf_script(job_name, file_pair_index,
+                                                                    file_index=0)
+                job_id = self.submit_job(script_path)
+                if job_id:
+                    for job_index in range(len(self.config['jobs'])):
+                        for file_index in range(len(file_pair)):
+                            job_name = f"job_{file_pair_index}_{job_index}_{file_index}"
+                            self.dependency_linker.append_job_id(job_name, job_id)
 
         for file_pair_index, file_pair in enumerate(self.config['input_file']):
             for job_index in range(len(self.config['jobs'])):
@@ -228,8 +227,10 @@ class PostHocAnalysis:
 
 if __name__ == "__main__":
     logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
-    config_name = "/home/tus53997/SeqBench/Jobs/bench.json"
-    post_hoc_analysis = PostHocAnalysis(config_name)
+    config_name = "/home/tus53997/SeqBench2/Jobs/bench.json"
+    truth_vcf_template = '/home/tus53997/SeqBench2/Scripts_Template/Compute_Node/Compute_truth_vcf.sh'
+    post_hoc_template = '/home/tus53997/SeqBench2/Scripts_Template/Compute_Node/Compute_post_hoc.sh'
+    post_hoc_analysis = PostHocAnalysis(config_name, truth_vcf_template, post_hoc_template)
     job_name = "truth_vcf"
     # print(post_hoc_analysis.check_job_status(71595))
-    post_hoc_analysis.run_posthoc_analysis(job_name, job_index=0, file_pair_index=0, file_index=0)
+    post_hoc_analysis.run_posthoc_analysis()
