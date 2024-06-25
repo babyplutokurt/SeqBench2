@@ -20,6 +20,54 @@ class CommandGenerator:
         raise NotImplementedError("Subclasses should implement this method.")
 
 
+class GzipCommandGenerator(CommandGenerator):
+    def generate_commands(self, job_index, file_pair_index, file_index):
+        job = self.config['jobs'][job_index]
+        normalized_job_name = job['name'].upper()
+        if normalized_job_name != "GZIP":
+            return []
+
+        executable_path = COMPRESSOR_PATHS.get("GZIP")
+        if not executable_path:
+            raise ValueError("Path for Spring compressor not found.")
+
+        input_path = self.path_generator.get_input_file_path(job_index, file_pair_index, file_index)
+        output_path = self.path_generator.get_compressed_output_path(job_index, file_pair_index, file_index)
+        decompressed_path = self.path_generator.get_decompressed_output_path(job_index, file_pair_index, file_index)
+
+        commands = []
+        for option in job['options']:
+            if "-d" in option:  # Assuming "-d" indicates a decompression option
+                command = f"{executable_path} {option} -i {output_path} -o {decompressed_path}"
+            else:
+                command = f"{executable_path} {option} -d {input_path} -o {output_path}"
+            commands.append(command)
+
+        return commands
+
+class BFQZIPCommandGenerator(CommandGenerator):
+    def generate_commands(self, job_index, file_pair_index, file_index):
+        job = self.config['jobs'][job_index]
+        if job['name'].upper() != "BFQZIP":
+            return []
+
+        executable_path = COMPRESSOR_PATHS.get("BFQZIP")
+        if not executable_path:
+            raise ValueError("Path for SZ3 compressor not found.")
+
+        input_path = self.path_generator.get_quality_scores_path(job_index, file_pair_index, file_index)
+        output_path = self.path_generator.get_compressed_output_path(job_index, file_pair_index, file_index)
+        decompressed_path = self.path_generator.get_decompressed_output_path(job_index, file_pair_index, file_index)
+
+        commands = []
+
+        option = job['options'][0]
+        command = f"python3 {executable_path} {input_path} -o {output_path} {option}"
+        commands.append(command)
+
+        return commands
+
+
 class SZ3CommandGenerator(CommandGenerator):
     def generate_commands(self, job_index, file_pair_index, file_index):
         job = self.config['jobs'][job_index]
@@ -155,7 +203,7 @@ class EnanoCommandGenerator(CommandGenerator):
 
 class GenozipCommandGenerator(CommandGenerator):
     def generate_commands(self, job_index, file_pair_index, file_index):
-        executable_path = COMPRESSOR_PATHS.get("GZIP", ['genozip', 'genounzip'])
+        executable_path = COMPRESSOR_PATHS.get("GENOZIP", ['genozip', 'genounzip'])
         if not executable_path:
             raise ValueError("Path for Genozip compressor not found.")
 
@@ -212,6 +260,7 @@ class GzipCommandGenerator(CommandGenerator):
 
         referenced = self.config['jobs'][job_index].get('reference_based', False)
         paired = self.config['jobs'][job_index].get('pair_compression', False)
+        print(GenozipCommandGenerator)
         executable_path_compress = executable_path[0]
         executable_path_decompress = executable_path[1]
         if referenced:
@@ -255,7 +304,8 @@ class CommandGeneratorFactory:
                 'SPRING': SpringCommandGenerator(self.config_path, self.path_generator),
                 'RENANO': RenanoCommandGenerator(self.config_path, self.path_generator),
                 'ENANO': EnanoCommandGenerator(self.config_path, self.path_generator),
-                'GENOZIP': GenozipCommandGenerator(self.config_path, self.path_generator)
+                'GENOZIP': GenozipCommandGenerator(self.config_path, self.path_generator),
+                'BFQZIP': BFQZIPCommandGenerator(self.config_path, self.path_generator)
             }
         except Exception as e:
             logging.error(f"Failed to initialize command generators: {e}")

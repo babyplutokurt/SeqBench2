@@ -1,2 +1,2 @@
 job_id_x,Compressor_Name,Compression_Time,Compression_Throughput,Decompression_Time,Decompression_Throughput,Ratio,job_id_y,MSE_v3,PSNR_v3,True_Positives(TP),False_Positives(FP),False_Negatives(FN),Precision,Recall,F1_Score
-compression_2_0_0,BFQZIP_--m3,14.99300329,5.415234,0.004612294,17603.09165,5.964309,error_analysis_2_0_0,2.1078486666666665,28.802805552382065,27884,6,5,0.999784,0.99982,0.999801
+compression_1_0_1,BFQZIP_--m3,46.251870456,3.280245,0.004612589,32892.047177,4.710343,error_analysis_1_0_1,3.780096476190476,26.266170985482027,106940,2325,712,0.978721,0.993386,0.985998

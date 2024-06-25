@@ -44,9 +44,8 @@ if __name__ == "__main__":
     extract_lines(500000, "/scratch/tus53997/FASTQ/ERR1050080_1.fastq",
                   "/scratch/tus53997/FASTQ/ERR1050080_1_500000.fastq")
 
-    extract_lines(100000, "/scratch/tus53997/FASTQ/HG00733_lib04_20171213_FAH37423_DD_guppy_0.5.1.fq",
-                  "/scratch/tus53997/FASTQ/HG00733_lib04_20171213_FAH37423_DD_guppy_0.5.1_100000.fq")
-
+    extract_lines(10000, "/scratch/tus53997/FASTQ/HG00733_lib04_20171213_FAH37423_DD_guppy_0.5.1.fq",
+                  "/scratch/tus53997/FASTQ/HG00733_lib04_20171213_FAH37423_DD_guppy_0.5.1_10000.fq")
 
 
 

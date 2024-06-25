@@ -98,24 +98,28 @@ class PathGenerator:
         input_file_path = self.get_input_file_path(job_index, file_pair_index, file_index)
         job_name = self.config['jobs'][job_index]['name'].upper()
         option_str = self.config['jobs'][job_index]['options'][0]  # Get the first option
-
         sanitized_option_str = option_str.replace(" ", "_").replace("/", "_")
         referenced = self.config['jobs'][job_index].get('reference_based', False)
         if referenced:
             sanitized_option_str += '_referenced'
-
         suffix_mapper = {
             "SZ3": ".sz",
             "FQZCOMP": ".fqz",
             "SPRING": ".spring",
             "RENANO": ".renano",
             "ENANO": ".enano",
-            "GENOZIP": ".genozip"
+            "GENOZIP": ".genozip",
+            "BFQZIP": ".fq"
         }
         suffix = suffix_mapper.get(job_name, ".out")
         base_filename = os.path.basename(input_file_path)
         compressed_output_dir = os.path.abspath(os.path.join(self.storage_dir, 'CompressedOutput'))
         self.ensure_directory_exists(compressed_output_dir)
+
+        if job_name == 'BFQZIP':
+            decompressed_output_dir = os.path.abspath(os.path.join(self.storage_dir, 'DecompressedOutput'))
+            compressed_file_name = f"{base_filename}_{sanitized_option_str}"
+            return os.path.join(decompressed_output_dir, compressed_file_name)
         compressed_file_name = f"{base_filename}_{sanitized_option_str}{suffix}"
         return os.path.join(compressed_output_dir, compressed_file_name)
 
@@ -123,7 +127,9 @@ class PathGenerator:
         compressed_path = self.get_compressed_output_path(job_index, file_pair_index, file_index)
         decompressed_output_dir = os.path.abspath(os.path.join(self.storage_dir, 'DecompressedOutput'))
         self.ensure_directory_exists(decompressed_output_dir)
-        if self.config['jobs'][job_index]['name'].upper() == 'SZ3':
+        if self.config['jobs'][job_index]['name'].upper() == 'BFQZIP':
+            decompressed_file_name = f"{os.path.basename(compressed_path)}.fq"
+        elif self.config['jobs'][job_index]['name'].upper() == 'SZ3':
             decompressed_file_name = f"{os.path.basename(compressed_path)}.bin.fastq"
         else:
             decompressed_file_name = f"{os.path.basename(compressed_path)}.fastq"
@@ -334,14 +340,14 @@ class PathGenerator:
 
 
 if __name__ == "__main__":
-    config_path = "/home/tus53997/SeqBench2/Jobs/bench2.json"  # Adjust the path as necessary
+    config_path = "/home/tus53997/SeqBench2/Jobs/bfqzip.json"  # Adjust the path as necessary
     pg = PathGenerator(config_path)
     job_index = 0
     file_pair_index = 0  # example file pair index
     file_index = 0  # example file index
     try:
-        print(pg.get_quality_scores_path(job_index, file_pair_index, file_index))
-        # print(pg.get_dna_bases_path(job_index, file_pair_index, file_index))
+        print(pg.get_compressed_output_path(job_index, file_pair_index, file_index))
+        print(pg.get_decompressed_output_path(job_index, file_pair_index, file_index))
         # print(pg.get_quality_id_path(job_index, file_pair_index, file_index))
         # print(pg.get_quality_scores_path(job_index, file_pair_index, file_index))
         # print(pg.get_compressed_variant_path(job_index, file_pair_index, file_index))

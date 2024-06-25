@@ -13,7 +13,7 @@ def get_file_size(file_path):
 # Example usage
 if __name__ == "__main__":
     # Replace with the actual file path
-    file_path = "/scratch/tus53997/FASTQ/SRR1295433_2_1000000.fastq"
+    file_path = "/scratch/tus53997/FASTQ/FASTQ_fields/ERR1044277_1_1000000_quality_scores.bin"
     size = get_file_size(file_path)
     if size is not None:
         print(f"The size of the file '{file_path}' is {size} bytes.")

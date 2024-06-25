@@ -41,6 +41,13 @@ if [ "{{ compressor }}" = "SZ3" ]; then
     compressed_bases_size=$(python -c "import json; data=json.load(open('/home/tus53997/SeqBench2/field_size.json')); print(data['{{ input_path }}']['compressed_bases_size'])")
     TOTAL_COMPRESSED_SIZE_MB=$(echo "scale=6; ($compressed_bases_id_size + $compressed_bases_size) / 1048576 + $OUTPUT_SIZE_MB" | bc)
     RATIO=$(echo "scale=6; $INPUT_SIZE_MB / $TOTAL_COMPRESSED_SIZE_MB" | bc)
+elif [ "{{ compressor }}" = "BFQZIP" ]; then
+    fq_dna_size=$(stat -c %s "{{ compressed_output_path }}.fq.dna.7z")
+    fq_qs_size=$(stat -c %s "{{ compressed_output_path }}.fq.qs.7z")
+    fq_h_size=$(stat -c %s "{{ compressed_output_path }}.h.7z")
+    TOTAL_COMPRESSED_SIZE_BYTES=$(echo "$fq_dna_size + $fq_qs_size + $fq_h_size" | bc)
+    TOTAL_COMPRESSED_SIZE_MB=$(echo "scale=6; $TOTAL_COMPRESSED_SIZE_BYTES / 1048576" | bc)
+    RATIO=$(echo "scale=6; $INPUT_SIZE_MB / $TOTAL_COMPRESSED_SIZE_MB" | bc)
 else
     RATIO=$(echo "scale=6; $INPUT_SIZE_MB / $OUTPUT_SIZE_MB" | bc)
 fi

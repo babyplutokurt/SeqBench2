@@ -63,7 +63,10 @@ class JobGenerator:
             template = Template(f.read())
 
         reference_command = ''
-        if len(commands) >= 3:
+        if len(commands) == 1:
+            compression_command = commands[0]
+            decompression_command = ""
+        elif len(commands) >= 3:
             reference_command = commands[0]
             compression_command = commands[1]
             decompression_command = commands[2]
@@ -86,12 +89,7 @@ class JobGenerator:
         walltime = self.config.get('walltime', "24:00:00")
         email = self.config.get('email', "default@gamil.com")
         node_size = 'normal'
-        compressor = 'FASTQ_specific'
-        if self.config['jobs'][job_index]['name'].upper() in ('SZ3'):
-            # node_size = 'large'
-            # ppn = 16
-            compressor = 'SZ3'
-
+        compressor = self.config['jobs'][job_index]['name'].upper()
         active_dependencies = []
         for dep in dependencies:
             job_status = check_job_status_depend(dep)

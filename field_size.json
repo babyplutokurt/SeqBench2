@@ -102,5 +102,21 @@
     "/scratch/tus53997/FASTQ/HG00733_lib04_20171213_FAH37423_DD_guppy_0.5.1_500000.fq": {
         "compressed_bases_id_size": 4576968,
         "compressed_bases_size": 769383969
+    },
+    "/scratch/tus53997/FASTQ/HG00733_lib04_20171213_FAH37423_DD_guppy_0.5.1_100000.fq": {
+        "compressed_bases_id_size": 2815435,
+        "compressed_bases_size": 469768715
+    },
+    "/scratch/tus53997/FASTQ/HG00733_lib04_20171213_FAH37423_DD_guppy_0.5.1_10000.fq": {
+        "compressed_bases_id_size": 282355,
+        "compressed_bases_size": 46546611
+    },
+    "/scratch/tus53997/FASTQ/ERR1044277_1_1000000.fastq": {
+        "compressed_bases_id_size": 4698941,
+        "compressed_bases_size": 25248112
+    },
+    "/scratch/tus53997/FASTQ/ERR1044277_1.fastq": {
+        "compressed_bases_id_size": 448906145,
+        "compressed_bases_size": 2618430156
     }
 }

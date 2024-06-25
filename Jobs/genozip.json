@@ -27,13 +27,13 @@
       "/scratch/tus53997/FASTQ/ERR1050080_1.fastq"
     ],
     [
-      "/scratch/tus53997/FASTQ/ERR016126.filt.fastq"
-    ],
-    [
       "/scratch/tus53997/FASTQ/ERR1044277_1.fastq"
     ],
     [
       "/scratch/tus53997/FASTQ/ERR1044278_2.fastq"
+    ],
+    [
+      "/scratch/tus53997/FASTQ/ERR016126.filt.fastq"
     ]
   ],
   "reference_file": "/work/tus53997/RefSeq/hg38.fa",

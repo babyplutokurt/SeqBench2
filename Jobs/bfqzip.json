@@ -13,12 +13,7 @@
   ],
   "input_file": [
     [
-      "/scratch/tus53997/FASTQ/SRR1295433_1_500000.fastq",
-      "/scratch/tus53997/FASTQ/SRR1295433_2_500000.fastq"
-    ],
-    [
-      "/scratch/tus53997/FASTQ/ERR899712_1_500000.fastq",
-      "/scratch/tus53997/FASTQ/ERR899712_2_500000.fastq"
+      "/scratch/tus53997/FASTQ/HG00733_lib04_20171213_FAH37423_DD_guppy_0.5.1_10000.fq"
     ]
   ],
   "reference_file": "/work/tus53997/RefSeq/hg38.fa",
